@@ -1,0 +1,2 @@
+Warning (10268): Verilog HDL information at Adder_Tree_49_Pipelined.v(31): always construct contains both blocking and non-blocking assignments
+Warning (10268): Verilog HDL information at Adder_Tree_49_Pipelined.v(54): always construct contains both blocking and non-blocking assignments

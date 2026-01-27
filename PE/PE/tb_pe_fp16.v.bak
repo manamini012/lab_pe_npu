@@ -1,0 +1,85 @@
+`timescale 1ns / 1ps
+
+module tb_pe_fp16;
+
+    // --- 1. Khai báo tín hiệu ---
+    reg clk;
+    reg rst_n;
+    reg load_en;
+    reg [15:0] ifmap_in;
+    reg [15:0] weight_in;
+    reg [15:0] psum_in;
+
+    wire [15:0] ifmap_out;
+    wire [15:0] psum_out;
+
+    // --- 2. Kết nối với Module PE (Unit Under Test) ---
+    pe_fp16 uut (
+        .clk(clk),
+        .rst_n(rst_n),
+        .load_en(load_en),
+        .ifmap_in(ifmap_in),
+        .weight_in(weight_in),
+        .psum_in(psum_in),
+        .ifmap_out(ifmap_out),
+        .psum_out(psum_out)
+    );
+
+    // --- 3. Tạo xung nhịp (Clock) ---
+    // Chu kỳ 10ns (100MHz)
+    initial begin
+        clk = 0;
+        forever #5 clk = ~clk;
+    end
+
+    // --- 4. Kịch bản kiểm tra (Test Scenario) ---
+    initial begin
+        // --- GIAI ĐOẠN 0: Khởi tạo & Reset ---
+        $display("--- BAT DAU SIMULATION ---");
+        rst_n = 0;       // Reset tích cực thấp
+        load_en = 0;
+        ifmap_in = 16'h0000;
+        weight_in = 16'h0000;
+        psum_in = 16'h0000;
+        
+        #20; // Giữ reset trong 20ns
+        rst_n = 1;       // Thả reset
+        #10; // Đợi 1 nhịp cho ổn định
+
+        // --- GIAI ĐOẠN 1: Nạp Trọng số (Load Weight) ---
+        // Giả sử ta dùng chuẩn IEEE 754 Half Precision
+        // Giá trị 2.0 = 0x4000
+        $display("[%0t] Loading Weight: 2.0 (Hex: 4000)", $time);
+        
+        load_en = 1;          // Bật chế độ nạp
+        weight_in = 16'h4000; // Nạp số 2.0
+        #10;                  // Đợi 1 chu kỳ clock để PE chốt dữ liệu
+        
+        load_en = 0;          // Tắt chế độ nạp -> Chuyển sang tính toán
+        weight_in = 16'h0000; // Xóa input này đi cho sạch (không bắt buộc)
+
+        // --- GIAI ĐOẠN 2: Tính toán (Streaming Data) ---
+        // Phép tính: (ifmap * weight) + psum
+        // Weight đang lưu là 2.0
+        
+        // --- Test Case 1: ifmap = 3.0, psum = 1.0 ---
+        // 3.0 = 0x4200, 1.0 = 0x3C00
+        // Mong đợi: (3.0 * 2.0) + 1.0 = 7.0 (Hex: 0x4600)
+        $display("[%0t] Input 1: Ifmap=3.0, Psum=1.0", $time);
+        ifmap_in = 16'h4200; 
+        psum_in  = 16'h3C00;
+        #10; // Đợi 1 nhịp
+
+        // --- Test Case 2: ifmap = 1.5, psum = 0.5 ---
+        // 1.5 = 0x3E00, 0.5 = 0x3800
+        // Mong đợi: (1.5 * 2.0) + 0.5 = 3.5 (Hex: 0x4300)
+        $display("[%0t] Input 2: Ifmap=1.5, Psum=0.5", $time);
+        ifmap_in = 16'h3E00;
+        psum_in  = 16'h3800;
+        #10;
+
+        // --- Dừng nạp dữ liệu ---
+        ifmap_in = 16'h0000;
+        psum_in = 16'h0000;
+
+        // --- GIAI ĐOẠN 3: Chờ kết

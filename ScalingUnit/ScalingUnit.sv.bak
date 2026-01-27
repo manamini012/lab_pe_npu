@@ -1,0 +1,134 @@
+/**
+ * @module ScalingUnit
+ * @brief Khối Scaling (Re-quantization) 3 tầng pipeline.
+ *
+ * Chuyển đổi một số nguyên 32-bit (từ bộ MAC) thành một số nguyên 8-bit (cho lớp tiếp theo)
+ * bằng cách sử dụng một bộ nhân (M) và một giá trị dịch (N) được cung cấp.
+ * Phép toán: output = Saturate( Round( (data_in * scale_M) >> scale_N ) )
+ *
+ * Độ trễ (Latency): 3 chu kỳ clock
+ */
+module ScalingUnit #(
+    // Tham số cho phép tùy chỉnh độ rộng
+    parameter IN_WIDTH  = 32, // Độ rộng đầu vào (ví dụ: INT32)
+    parameter M_WIDTH   = 32, // Độ rộng của bộ nhân M
+    parameter N_WIDTH   = 5,  // Độ rộng của giá trị dịch N (5 bit = 2^5 = 32)
+    parameter OUT_WIDTH = 8   // Độ rộng đầu ra (ví dụ: INT8)
+)(
+    input logic clk,
+    input logic rst_n, // Reset (active-low)
+
+    // Giao diện đầu vào
+    input logic valid_in,
+    input logic signed [IN_WIDTH-1:0]  data_in, // Từ bộ MAC (INT32)
+    input logic signed [M_WIDTH-1:0]  scale_M, // Số nhân M
+    input logic [N_WIDTH-1:0]          scale_N, // Số bit dịch N
+
+    // Giao diện đầu ra
+    output logic valid_out,
+    output logic signed [OUT_WIDTH-1:0] data_out // Tới lớp tiếp theo (INT8)
+);
+
+    // Định nghĩa các hằng số cho Tầng 3 (Bão hòa)
+    // Tính toán tự động dựa trên OUT_WIDTH
+    localparam MAX_VAL =  (1 << (OUT_WIDTH-1)) - 1; // +127 cho INT8
+    localparam MIN_VAL = -(1 << (OUT_WIDTH-1));     // -128 cho INT8
+
+    // --- ĐĂNG KÝ PIPELINE ---
+
+    // Thanh ghi giữa Tầng 1 (Mul) và Tầng 2 (Shift)
+    logic valid_reg1;
+    logic signed [IN_WIDTH + M_WIDTH - 1:0] mult_result_reg; // 32+32 = 64 bit
+    logic [N_WIDTH-1:0]                     scale_N_reg;
+
+    // Thanh ghi giữa Tầng 2 (Shift) và Tầng 3 (Saturate)
+    logic valid_reg2;
+    logic signed [IN_WIDTH + M_WIDTH - 1:0] shift_result_reg;
+
+
+    // --- TẦNG 1: NHÂN (MULTIPLY STAGE) ---
+    // Thực hiện (data_in * scale_M)
+    
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            valid_reg1      <= 1'b0;
+            mult_result_reg <= '0;
+            scale_N_reg     <= '0;
+        end else begin
+            // Chốt đầu vào khi valid_in = 1
+            if (valid_in) begin
+                valid_reg1      <= 1'b1;
+                // Phép nhân số có dấu. Sẽ được tổng hợp vào khối DSP
+                mult_result_reg <= data_in * scale_M; 
+                scale_N_reg     <= scale_N;
+            end else begin
+                valid_reg1      <= 1'b0; // Hủy valid nếu không có đầu vào
+            end
+        end
+    end
+
+
+    // --- TẦNG 2: DỊCH BIT & LÀM TRÒN (SHIFT & ROUND STAGE) ---
+    // Thực hiện Round( (mult_result) >> scale_N )
+
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            valid_reg2       <= 1'b0;
+            shift_result_reg <= '0;
+        end else begin
+            if (valid_reg1) begin
+                valid_reg2 <= 1'b1;
+
+                // 1. Tính giá trị làm tròn (offset) = 0.5 * 2^N = 2^(N-1)
+                // Phải là số có dấu để cộng chính xác
+                logic signed [IN_WIDTH + M_WIDTH - 1:0] round_val;
+                round_val = (scale_N_reg == 0) ? 0 : (1'sb1 << (scale_N_reg - 1));
+
+                // 2. Cộng giá trị làm tròn
+                logic signed [IN_WIDTH + M_WIDTH - 1:0] rounded_result;
+                rounded_result = mult_result_reg + round_val;
+
+                // 3. Dịch phải SỐ HỌC (>>>)
+                // (Giữ lại bit dấu, rất quan trọng cho số âm)
+                shift_result_reg <= rounded_result >>> scale_N_reg;
+
+            end else begin
+                valid_reg2 <= 1'b0;
+            end
+        end
+    end
+
+
+    // --- TẦNG 3: BÃO HÒA & ĐẦU RA (SATURATE & OUTPUT STAGE) ---
+    // Thực hiện Saturate( shift_result )
+
+    logic signed [OUT_WIDTH-1:0] saturated_result; // Dây (wire) tạm thời
+
+    // Logic tổ hợp (combinational) để "kẹp" giá trị
+    always_comb begin
+        if (shift_result_reg > MAX_VAL) begin
+            saturated_result = MAX_VAL;
+        end else if (shift_result_reg < MIN_VAL) begin
+            saturated_result = MIN_VAL;
+        end else begin
+            // Giá trị nằm trong khoảng, cắt lấy phần [OUT_WIDTH-1:0]
+            saturated_result = shift_result_reg[OUT_WIDTH-1:0];
+        end
+    end
+
+    // Thanh ghi đầu ra
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            valid_out <= 1'b0;
+            data_out  <= '0;
+        end else begin
+            if (valid_reg2) begin
+                valid_out <= 1'b1;
+                data_out  <= saturated_result;
+            end else begin
+                valid_out <= 1'b0;
+            end
+        end
+    end
+
+endmodule

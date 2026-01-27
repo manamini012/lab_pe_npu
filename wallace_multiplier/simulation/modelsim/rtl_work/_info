@@ -1,0 +1,54 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/altera/13.0sp1/wallace_multiplier/simulation/modelsim
+vtestbench
+Z1 !s110 1764214678
+!i10b 1
+!s100 ^3b6zYzBTj5MP`5CUURFO2
+In_QLRZkn`Gg4FD^LlQoHi0
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1763880032
+8C:/altera/13.0sp1/wallace_multiplier/testbench.v
+FC:/altera/13.0sp1/wallace_multiplier/testbench.v
+L0 3
+Z3 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z4 !s108 1764214678.000000
+!s107 C:/altera/13.0sp1/wallace_multiplier/testbench.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/altera/13.0sp1/wallace_multiplier|C:/altera/13.0sp1/wallace_multiplier/testbench.v|
+!i113 1
+Z5 o-vlog01compat -work work
+Z6 !s92 -vlog01compat -work work +incdir+C:/altera/13.0sp1/wallace_multiplier
+Z7 tCvgOpt 0
+vwallace_multiplier
+R1
+!i10b 1
+!s100 AHHgBV?_j1;UclH@KPT`00
+IJoPn3Wbj3<WGb4ml3_HZX0
+R2
+R0
+w1763880298
+8C:/altera/13.0sp1/wallace_multiplier/wallace_multiplier.v
+FC:/altera/13.0sp1/wallace_multiplier/wallace_multiplier.v
+L0 1
+R3
+r1
+!s85 0
+31
+R4
+!s107 C:/altera/13.0sp1/wallace_multiplier/wallace_multiplier.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/altera/13.0sp1/wallace_multiplier|C:/altera/13.0sp1/wallace_multiplier/wallace_multiplier.v|
+!i113 1
+R5
+R6
+R7

@@ -1,0 +1,20 @@
+Fitter Status : Successful - Sat Dec 13 17:53:36 2025
+Quartus II 64-Bit Version : 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition
+Revision Name : FPU
+Top-level Entity Name : TPU_Top
+Family : Cyclone IV GX
+Device : EP4CGX50CF23C6
+Timing Models : Final
+Total logic elements : 20,411 / 49,888 ( 41 % )
+    Total combinational functions : 19,688 / 49,888 ( 39 % )
+    Dedicated logic registers : 8,924 / 49,888 ( 18 % )
+Total registers : 8924
+Total pins : 0 / 307 ( 0 % )
+Total virtual pins : 547
+Total memory bits : 2,448 / 2,562,048 ( < 1 % )
+Embedded Multiplier 9-bit elements : 0 / 280 ( 0 % )
+Total GXB Receiver Channel PCS : 0 / 4 ( 0 % )
+Total GXB Receiver Channel PMA : 0 / 4 ( 0 % )
+Total GXB Transmitter Channel PCS : 0 / 4 ( 0 % )
+Total GXB Transmitter Channel PMA : 0 / 4 ( 0 % )
+Total PLLs : 0 / 6 ( 0 % )

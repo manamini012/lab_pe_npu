@@ -1,0 +1,154 @@
+// Định nghĩa timescale cho mô phỏng
+`timescale 1ns / 1ps
+
+module testbench;
+
+    // --- 1. Định nghĩa Tham số (Parameters) ---
+    localparam IN_WIDTH    = 32;
+    localparam M_WIDTH     = 32;
+    localparam N_WIDTH     = 5;
+    localparam OUT_WIDTH   = 8;
+    localparam CLK_PERIOD  = 10; // 10ns = 100MHz
+
+    // --- 2. Tín hiệu (Signals) ---
+    logic clk;
+    logic rst_n;
+    logic valid_in;
+    logic signed [IN_WIDTH-1:0]  data_in;
+    logic signed [M_WIDTH-1:0]  scale_M;
+    logic [N_WIDTH-1:0]          scale_N;
+    logic valid_out;
+    logic signed [OUT_WIDTH-1:0] data_out;
+
+    // --- 3. Khởi tạo DUT (Instantiate the DUT) ---
+    // (Giả sử file thiết kế của bạn tên là ScalingUnit.sv)
+    ScalingUnit #(
+        .IN_WIDTH(IN_WIDTH),
+        .M_WIDTH(M_WIDTH),
+        .N_WIDTH(N_WIDTH),
+        .OUT_WIDTH(OUT_WIDTH)
+    ) uut (
+        .clk(clk),
+        .rst_n(rst_n),
+        .valid_in(valid_in),
+        .data_in(data_in),
+        .scale_M(scale_M),
+        .scale_N(scale_N),
+        .valid_out(valid_out),
+        .data_out(data_out)
+    );
+
+    // --- 4. Tạo Clock và Reset ---
+    always #(CLK_PERIOD / 2) clk = ~clk;
+
+    initial begin
+        // Khởi tạo giá trị ban đầu
+        clk = 0;
+        rst_n = 0; // Giữ reset
+        valid_in = 0;
+        data_in = 0;
+        scale_M = 0;
+        scale_N = 0;
+
+        #(CLK_PERIOD * 5);
+        rst_n = 1; // Nhả reset
+        #(CLK_PERIOD);
+    end
+
+
+    // --- 5. Luồng Kích thích (Stimulus) và Kiểm tra (Checker) ---
+    initial begin
+        // Chờ cho reset kết thúc
+        wait (rst_n == 1);
+        #(CLK_PERIOD);
+
+        // --- Test Case 1: Phép tính dương (100 * 0.123 -> 12) ---
+        $display("TB: Gửi Test Case 1 (100 * 0.123)");
+        valid_in <= 1;
+        data_in  <= 100;
+        scale_M  <= 126; // M cho 0.123 với N=10
+        scale_N  <= 10;
+        
+        // ***************************************************************
+        // *** SỬA LỖI RACE CONDITION ***
+        // Thay vì @(posedge clk), chúng ta chờ 1 chu kỳ đầy đủ
+        // để set valid về 0 một cách AN TOÀN (giữa các clock)
+        #(CLK_PERIOD);
+        valid_in <= 0; 
+        // ***************************************************************
+
+        // Chờ 3 chu kỳ cho pipeline (đã mất 1 chu kỳ ở trên)
+        @(posedge clk); // (Kết quả Tầng 2)
+        @(posedge clk); // (Kết quả Tầng 3)
+        
+        // Kiểm tra kết quả
+        if (valid_out && data_out == 12)
+            $display("TB: [PASS] Test Case 1. Output = %d", data_out);
+        else
+            $display("TB: [FAILED] Test Case 1. Output = %d, Expected = 12", data_out);
+
+        
+        // --- Test Case 2: Bão hòa dương (Positive Saturation) ---
+        #(CLK_PERIOD * 2); // Chờ 2 chu kỳ
+        $display("TB: Gửi Test Case 2 (Bão hòa dương -> 127)");
+        valid_in <= 1;
+        data_in  <= 1_000_000;
+        scale_M  <= 126; 
+        scale_N  <= 10;
+
+        #(CLK_PERIOD); // Sửa lỗi Race Condition
+        valid_in <= 0;
+
+        @(posedge clk); @(posedge clk); @(posedge clk); // Chờ 3 chu kỳ
+
+        if (valid_out && data_out == 127)
+            $display("TB: [PASS] Test Case 2. Output = %d", data_out);
+        else
+            $display("TB: [FAILED] Test Case 2. Output = %d, Expected = 127", data_out);
+
+
+        // --- Test Case 3: Bão hòa âm (Negative Saturation) ---
+        #(CLK_PERIOD * 2);
+        $display("TB: Gửi Test Case 3 (Bão hòa âm -> -128)");
+        valid_in <= 1;
+        data_in  <= -100; 
+        scale_M  <= 64;   
+        scale_N  <= 5;    
+
+        #(CLK_PERIOD); // Sửa lỗi Race Condition
+        valid_in <= 0;
+
+        @(posedge clk); @(posedge clk); @(posedge clk); // Chờ 3 chu kỳ
+
+        if (valid_out && data_out == -128)
+            $display("TB: [PASS] Test Case 3. Output = %d", data_out);
+        else
+            $display("TB: [FAILED] Test Case 3. Output = %d, Expected = -128", data_out);
+
+
+        // --- Test Case 4: Âm * Âm (Negative * Negative) ---
+        #(CLK_PERIOD * 2);
+        $display("TB: Gửi Test Case 4 (-10 * -2.0 -> 20)");
+        valid_in <= 1;
+        data_in  <= -10;
+        scale_M  <= -64; 
+        scale_N  <= 5;
+
+        #(CLK_PERIOD); // Sửa lỗi Race Condition
+        valid_in <= 0;
+
+        @(posedge clk); @(posedge clk); @(posedge clk); // Chờ 3 chu kỳ
+
+        if (valid_out && data_out == 20)
+            $display("TB: [PASS] Test Case 4. Output = %d", data_out);
+        else
+            $display("TB: [FAILED] Test Case 4. Output = %d, Expected = 20", data_out);
+
+        
+        // --- Kết thúc mô phỏng ---
+        #(CLK_PERIOD * 10);
+        $display("TB: Hoàn tất mô phỏng.");
+        $finish; 
+    end
+
+endmodule

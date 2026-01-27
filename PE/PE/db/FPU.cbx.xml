@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="FPU">
+		<CBX_INST_ENTRY INSTANCE_NAME="|TPU_Top|Data_Skew_Buffer:u_buffer|altshift_taps:d2_rtl_0" CBX_FILE_NAME="shift_taps_upm.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|TPU_Top|Data_Skew_Buffer:u_buffer|altshift_taps:d3_rtl_0" CBX_FILE_NAME="shift_taps_tpm.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|TPU_Top|Systolic_Array_4x6:u_array|pe_fp16:ROW_LOOP[2].COL_LOOP[0].u_pe|MAC_FP_16:u_mac|FP_Add_16:u_adder|altshift_taps:Sum_Out_rtl_0" CBX_FILE_NAME="shift_taps_vpm.tdf"/>
+	</PROJECT>
+</LOG_ROOT>

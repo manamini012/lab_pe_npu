@@ -1,0 +1,49 @@
+module pe_fp16 (
+    input wire clk,
+    input wire rst_n, // Lưu ý: Code MAC của bạn dùng rst (tích cực cao) hay rst_n? Hãy đồng bộ nó.
+    input wire load_en,
+    input wire [15:0] ifmap_in,
+    input wire [15:0] weight_in,
+    input wire [15:0] psum_in,
+    
+    output wire [15:0] ifmap_out,
+    output wire [15:0] psum_out
+);
+
+    // 1. Lưu trọng số (Giữ nguyên)
+    reg [15:0] stored_weight;
+    always @(posedge clk or posedge rst_n) begin // Giả sử rst_n tích cực cao cho khớp MAC
+        if (rst_n) stored_weight <= 16'd0;
+        else if (load_en) stored_weight <= weight_in;
+    end
+
+    // 2. Gọi khối MAC (Dùng phiên bản mới có cổng C)
+    MAC_FP_16 u_mac (
+        .clk(clk),
+        .rst(rst_n),
+        .A(ifmap_in),
+        .B(stored_weight),
+        .C(psum_in),       // Nối tổng từ trên xuống vào đây
+        .Acc_Out(psum_out) // Kết quả đi ra
+    );
+
+    // 3. Xử lý trễ cho ifmap (Quan trọng!)
+    // Vì MAC mất 5 cycle để nhân + 1 cycle pipeline cộng = 6 cycle (ví dụ)
+    // Ta cần làm trễ ifmap tương ứng để sóng dữ liệu đồng bộ.
+    // Giả sử tổng delay của MAC là 6 chu kỳ.
+    
+    reg [15:0] shift_reg [0:5]; // Tạo 6 thanh ghi nối tiếp
+    integer i;
+
+    always @(posedge clk or posedge rst_n) begin
+        if (rst_n) begin
+            for (i=0; i<6; i=i+1) shift_reg[i] <= 16'd0;
+        end else begin
+            shift_reg[0] <= ifmap_in;
+            for (i=1; i<6; i=i+1) shift_reg[i] <= shift_reg[i-1];
+        end
+    end
+
+    assign ifmap_out = shift_reg[5]; // Output lấy từ thanh ghi cuối cùng
+
+endmodule

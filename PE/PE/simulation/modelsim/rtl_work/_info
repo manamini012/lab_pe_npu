@@ -1,0 +1,326 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/altera/13.0sp1/FP16_MAC_Design/MAC/simulation/modelsim
+vData_Skew_Buffer
+Z1 !s110 1765623309
+!i10b 1
+!s100 TU4R^azDo^]d9kd@iEjFZ3
+IERZUgYGVOabf7YIg>mQl[1
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1765622801
+8C:/altera/13.0sp1/FP16_MAC_Design/MAC/Data_Skew_Buffer.v
+FC:/altera/13.0sp1/FP16_MAC_Design/MAC/Data_Skew_Buffer.v
+L0 3
+Z3 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z4 !s108 1765623309.000000
+!s107 C:/altera/13.0sp1/FP16_MAC_Design/MAC/Data_Skew_Buffer.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC|C:/altera/13.0sp1/FP16_MAC_Design/MAC/Data_Skew_Buffer.v|
+!i113 1
+Z5 o-vlog01compat -work work
+Z6 !s92 -vlog01compat -work work +incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC
+Z7 tCvgOpt 0
+n@data_@skew_@buffer
+vei_adder32
+Z8 !s110 1765623307
+!i10b 1
+!s100 =a9l34O]85h2_m1?DoQEQ3
+I=mQl7ND]SU2`ML;cNO3;c0
+R2
+R0
+w1764856749
+8C:/altera/13.0sp1/FP16_MAC_Design/MAC/ei_adder32.v
+FC:/altera/13.0sp1/FP16_MAC_Design/MAC/ei_adder32.v
+L0 1
+R3
+r1
+!s85 0
+31
+Z9 !s108 1765623307.000000
+!s107 C:/altera/13.0sp1/FP16_MAC_Design/MAC/ei_adder32.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC|C:/altera/13.0sp1/FP16_MAC_Design/MAC/ei_adder32.v|
+!i113 1
+R5
+R6
+R7
+vei_adder8
+R8
+!i10b 1
+!s100 1V90E4SFm1]AA_JW7z6[Q3
+I=k7Xz40L7Y1`Z:QeIYST>2
+R2
+R0
+w1764818645
+8C:/altera/13.0sp1/FP16_MAC_Design/MAC/ei_adder8.v
+FC:/altera/13.0sp1/FP16_MAC_Design/MAC/ei_adder8.v
+L0 1
+R3
+r1
+!s85 0
+31
+R9
+!s107 C:/altera/13.0sp1/FP16_MAC_Design/MAC/ei_adder8.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC|C:/altera/13.0sp1/FP16_MAC_Design/MAC/ei_adder8.v|
+!i113 1
+R5
+R6
+R7
+vei_multiplier
+Z10 !s110 1765623308
+!i10b 1
+!s100 XXlRTXPkj0XFQEoif2fLA1
+I@DcLI0PAa?@UKH8fHQ`Wn0
+R2
+R0
+w1764834149
+8C:/altera/13.0sp1/FP16_MAC_Design/MAC/ei_multiplier.v
+FC:/altera/13.0sp1/FP16_MAC_Design/MAC/ei_multiplier.v
+L0 2
+R3
+r1
+!s85 0
+31
+Z11 !s108 1765623308.000000
+!s107 C:/altera/13.0sp1/FP16_MAC_Design/MAC/ei_multiplier.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC|C:/altera/13.0sp1/FP16_MAC_Design/MAC/ei_multiplier.v|
+!i113 1
+R5
+R6
+R7
+vFP_Add_16
+R10
+!i10b 1
+!s100 6ooOfzVzXE6lAT0neno6_3
+I:zF]FHHI@j^A<6o<RjIHe0
+R2
+R0
+w1765615632
+8C:/altera/13.0sp1/FP16_MAC_Design/MAC/FP_Add_16.v
+FC:/altera/13.0sp1/FP16_MAC_Design/MAC/FP_Add_16.v
+L0 3
+R3
+r1
+!s85 0
+31
+R11
+!s107 C:/altera/13.0sp1/FP16_MAC_Design/MAC/FP_Add_16.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC|C:/altera/13.0sp1/FP16_MAC_Design/MAC/FP_Add_16.v|
+!i113 1
+R5
+R6
+R7
+n@f@p_@add_16
+vFP_Mul_16
+R10
+!i10b 1
+!s100 7Oh3kDe=6AI?0RTimiTIo0
+IFVaCKfa=lWIoj?6[<XZ?G2
+R2
+R0
+w1765616206
+8C:/altera/13.0sp1/FP16_MAC_Design/MAC/FP_Mul_16.v
+FC:/altera/13.0sp1/FP16_MAC_Design/MAC/FP_Mul_16.v
+L0 3
+R3
+r1
+!s85 0
+31
+R11
+!s107 C:/altera/13.0sp1/FP16_MAC_Design/MAC/FP_Mul_16.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC|C:/altera/13.0sp1/FP16_MAC_Design/MAC/FP_Mul_16.v|
+!i113 1
+R5
+R6
+R7
+n@f@p_@mul_16
+vfull_adder
+R10
+!i10b 1
+!s100 Y>lSB0SLXFgF9PmBIg8;A3
+Ic2YVjhB]=Xe:]J]oROfm_1
+R2
+R0
+w1764656506
+8C:/altera/13.0sp1/FP16_MAC_Design/MAC/full_adder.v
+FC:/altera/13.0sp1/FP16_MAC_Design/MAC/full_adder.v
+L0 1
+R3
+r1
+!s85 0
+31
+R11
+!s107 C:/altera/13.0sp1/FP16_MAC_Design/MAC/full_adder.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC|C:/altera/13.0sp1/FP16_MAC_Design/MAC/full_adder.v|
+!i113 1
+R5
+R6
+R7
+vMAC_FP_16
+R8
+!i10b 1
+!s100 3:h8RgoHk@Ck@J`eW`8Q72
+IYUFdhWoBkH5;o4R1>HZhO3
+R2
+R0
+w1765608738
+8C:/altera/13.0sp1/FP16_MAC_Design/MAC/MAC_FP_16.v
+FC:/altera/13.0sp1/FP16_MAC_Design/MAC/MAC_FP_16.v
+L0 3
+R3
+r1
+!s85 0
+31
+R9
+!s107 C:/altera/13.0sp1/FP16_MAC_Design/MAC/MAC_FP_16.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC|C:/altera/13.0sp1/FP16_MAC_Design/MAC/MAC_FP_16.v|
+!i113 1
+R5
+R6
+R7
+n@m@a@c_@f@p_16
+vMantissa_Multiplier_16
+R10
+!i10b 1
+!s100 8=fF>RNhaP5UhbfP8jO9F2
+IAgaH?DM3d>Dek5R__3Gk?3
+R2
+R0
+w1764856750
+8C:/altera/13.0sp1/FP16_MAC_Design/MAC/Mantissa_Multiplier_16.v
+FC:/altera/13.0sp1/FP16_MAC_Design/MAC/Mantissa_Multiplier_16.v
+L0 3
+R3
+r1
+!s85 0
+31
+R11
+!s107 C:/altera/13.0sp1/FP16_MAC_Design/MAC/Mantissa_Multiplier_16.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC|C:/altera/13.0sp1/FP16_MAC_Design/MAC/Mantissa_Multiplier_16.v|
+!i113 1
+R5
+R6
+R7
+n@mantissa_@multiplier_16
+vpe_fp16
+R10
+!i10b 1
+!s100 PXQ:I<`0^5T?me]0g73K02
+I6_oPWC<]>_YOeXT6<H9k=1
+R2
+R0
+w1765608824
+8C:/altera/13.0sp1/FP16_MAC_Design/MAC/pe_fp16.v
+FC:/altera/13.0sp1/FP16_MAC_Design/MAC/pe_fp16.v
+L0 3
+R3
+r1
+!s85 0
+31
+R11
+!s107 C:/altera/13.0sp1/FP16_MAC_Design/MAC/pe_fp16.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC|C:/altera/13.0sp1/FP16_MAC_Design/MAC/pe_fp16.v|
+!i113 1
+R5
+R6
+R7
+vregN
+R10
+!i10b 1
+!s100 gOY1cG:3_Qn0;`?^kT0dU0
+I1;z1lDZkiRfQfO1YhKk9j0
+R2
+R0
+w1764856748
+8C:/altera/13.0sp1/FP16_MAC_Design/MAC/regN.v
+FC:/altera/13.0sp1/FP16_MAC_Design/MAC/regN.v
+L0 1
+R3
+r1
+!s85 0
+31
+R11
+!s107 C:/altera/13.0sp1/FP16_MAC_Design/MAC/regN.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC|C:/altera/13.0sp1/FP16_MAC_Design/MAC/regN.v|
+!i113 1
+R5
+R6
+R7
+nreg@n
+vSystolic_Array_4x6
+R1
+!i10b 1
+!s100 mZSbZPX9Y5X1YoAloQfgT3
+IJfjodH7BRLb;@1_2AY9o61
+R2
+R0
+w1765306834
+8C:/altera/13.0sp1/FP16_MAC_Design/MAC/Systolic_Array_4x6.v
+FC:/altera/13.0sp1/FP16_MAC_Design/MAC/Systolic_Array_4x6.v
+L0 3
+R3
+r1
+!s85 0
+31
+R11
+!s107 C:/altera/13.0sp1/FP16_MAC_Design/MAC/Systolic_Array_4x6.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC|C:/altera/13.0sp1/FP16_MAC_Design/MAC/Systolic_Array_4x6.v|
+!i113 1
+R5
+R6
+R7
+n@systolic_@array_4x6
+vtb_tpu_top
+R1
+!i10b 1
+!s100 J4;h1KibfVOc2z:6jJj[[0
+IHenjd0TX``X0W4aj0e;zI0
+R2
+R0
+w1765623298
+8C:/altera/13.0sp1/FP16_MAC_Design/MAC/tb_tpu_top.v
+FC:/altera/13.0sp1/FP16_MAC_Design/MAC/tb_tpu_top.v
+L0 3
+R3
+r1
+!s85 0
+31
+R4
+!s107 C:/altera/13.0sp1/FP16_MAC_Design/MAC/tb_tpu_top.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC|C:/altera/13.0sp1/FP16_MAC_Design/MAC/tb_tpu_top.v|
+!i113 1
+R5
+R6
+R7
+vTPU_Top
+R1
+!i10b 1
+!s100 bJeUoK[JMMg62YgYeT]iW0
+IPVRn^Ada7FkGOhnR?EH8k2
+R2
+R0
+w1765622084
+8C:/altera/13.0sp1/FP16_MAC_Design/MAC/TPU_Top.v
+FC:/altera/13.0sp1/FP16_MAC_Design/MAC/TPU_Top.v
+L0 3
+R3
+r1
+!s85 0
+31
+R4
+!s107 C:/altera/13.0sp1/FP16_MAC_Design/MAC/TPU_Top.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC|C:/altera/13.0sp1/FP16_MAC_Design/MAC/TPU_Top.v|
+!i113 1
+R5
+R6
+R7
+n@t@p@u_@top

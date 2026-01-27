@@ -1,0 +1,164 @@
+`timescale 1ns / 1ps
+
+module tb_systolic_array;
+
+    // --- 1. KHAI BÁO TÍN HIỆU ---
+    reg clk;
+    reg rst;
+    reg load_en;
+
+    // Dữ liệu Input thô (Chưa skew) từ Testbench
+    reg [63:0] ifmap_raw; 
+
+    // Dữ liệu đã Skew (Từ Buffer -> Array)
+    wire [63:0] ifmap_skewed_wire;
+
+    // Trọng số (Weights)
+    reg [383:0] weights_in;
+
+    // Output
+    wire [95:0] psum_south_out;
+
+    // Biến hỗ trợ loop
+    integer k;
+
+    // --- 2. KẾT NỐI CÁC MODULE (TOP LEVEL INTEGRATION) ---
+
+    // A. Module làm lệch dữ liệu (BẮT BUỘC)
+    Data_Skew_Buffer u_skew_buffer (
+        .clk(clk),
+        .rst(rst),
+        .ifmap_in(ifmap_raw),
+        .ifmap_skewed(ifmap_skewed_wire) // Output này nối vào input của Array
+    );
+
+    // B. Module Systolic Array (DUT)
+    Systolic_Array_4x6 u_array (
+        .clk(clk),
+        .rst(rst),
+        .load_en(load_en),
+        .ifmap_west_in(ifmap_skewed_wire), // Nhận dữ liệu đã skew
+        .weights_in(weights_in),
+        .psum_south_out(psum_south_out)
+    );
+
+    // --- 3. KHỞI TẠO CLOCK (100MHz) ---
+    initial begin
+        clk = 0;
+        forever #5 clk = ~clk; // Chu kỳ 10ns
+    end
+
+    // --- 4. DATA DRIVER TASKS ---
+    
+    // Task nạp dữ liệu cho 4 hàng cùng lúc
+    task drive_input(input [15:0] r3, input [15:0] r2, input [15:0] r1, input [15:0] r0);
+        begin
+            ifmap_raw = {r3, r2, r1, r0};
+            @(posedge clk); #1; // Chờ 1 nhịp
+        end
+    endtask
+
+    // --- 5. CHƯƠNG TRÌNH TEST CHÍNH ---
+    initial begin
+        // A. Khởi tạo giá trị ban đầu
+        rst = 1;
+        load_en = 0;
+        ifmap_raw = 0;
+        weights_in = 0;
+
+        // B. Nạp Trọng số (Weight Loading)
+        // Để dễ kiểm tra: Ta gán TOÀN BỘ Weight = 1
+        // (Trong thực tế FP16: 1.0 = 16'h3C00. Ở đây dùng số nguyên 1 cho dễ nhìn)
+        $display("--- STEP 1: LOADING WEIGHTS = 1 ---");
+        for (k = 0; k < 24; k = k + 1) begin
+            // Cài đặt tất cả 24 PE có trọng số là 1
+            weights_in[(k*16) +: 16] = 16'd1; 
+        end
+        
+        #20;
+        rst = 0;       // Thả Reset
+        load_en = 1;   // Bật chế độ nạp (nếu PE cần)
+        #10;
+        load_en = 0;   // Tắt nạp, chuyển sang tính toán
+
+        // C. Bắt đầu đẩy dữ liệu (Streaming Data)
+        $display("--- STEP 2: STREAMING INPUT DATA ---");
+        
+        // Ta sẽ thực hiện phép nhân Ma trận:
+        // Input (4x1) toàn là số 2  x  Matrix Weight toàn là số 1
+        // Kỳ vọng: Mỗi dòng sẽ cộng thêm (2 * 1).
+        // Sau khi qua 4 dòng PE, kết quả cuối cùng phải là: 2 + 2 + 2 + 2 = 8.
+
+        // Nhịp 1: Nạp cột dữ liệu đầu tiên (Toàn số 2)
+        drive_input(16'd2, 16'd2, 16'd2, 16'd2);
+
+        // Nhịp 2: Nạp cột dữ liệu thứ hai (Toàn số 3)
+        drive_input(16'd3, 16'd3, 16'd3, 16'd3);
+
+        // Nhịp 3: Nạp 0 để kết thúc
+        ifmap_raw = 0;
+        
+        // D. Chờ kết quả
+        // Dữ liệu cần đi qua: Skew Buffer (3 nhịp) + Array Latency (4 hàng + pipeline)
+        #150; 
+        
+        $display("--- SIMULATION FINISHED ---");
+        $stop;
+    end
+
+    // --- 6. MONITOR (HIỂN THỊ KẾT QUẢ) ---
+    // Hiển thị giá trị 6 cột đầu ra psum
+    always @(posedge clk) begin
+        #2; // Đợi ổn định
+        if (!rst) begin
+            // Chỉ in khi có dữ liệu khác 0 xuất hiện ở output
+            if (psum_south_out != 0) begin
+                $display("[%0t] OUTPUT PSUM: %d | %d | %d | %d | %d | %d", 
+                         $time, 
+                         psum_south_out[15:0],   // Col 0
+                         psum_south_out[31:16],  // Col 1
+                         psum_south_out[47:32],  // Col 2
+                         psum_south_out[63:48],  // Col 3
+                         psum_south_out[79:64],  // Col 4
+                         psum_south_out[95:80]); // Col 5
+            end
+        end
+    end
+
+endmodule
+
+
+// =========================================================================
+// MOCK PE MODULE (DÙNG ĐỂ TEST LOGIC NẾU BẠN CHƯA CÓ FILE PE_FP16)
+// Module này thực hiện cộng số nguyên đơn giản: Psum_out = Psum_in + (Ifmap * Weight)
+// =========================================================================
+module pe_fp16 (
+    input wire clk, rst, load_en,
+    input wire [15:0] ifmap_in,
+    input wire [15:0] psum_in,
+    input wire [15:0] weight_in,
+    output reg [15:0] ifmap_out,
+    output reg [15:0] psum_out
+);
+    // Lưu weight
+    reg [15:0] w_reg;
+    always @(posedge clk) begin
+        if (load_en) w_reg <= weight_in; // Nạp weight
+    end
+
+    // Logic tính toán (Giả lập Latency = 1 chu kỳ)
+    always @(posedge clk) begin
+        if (rst) begin
+            ifmap_out <= 0;
+            psum_out <= 0;
+        end else begin
+            // 1. Chuyền ifmap sang phải
+            ifmap_out <= ifmap_in;
+            
+            // 2. Tính MAC: Psum = Psum_old + (Input * Weight)
+            // Lưu ý: Đây là phép tính số nguyên để debug logic dây nối.
+            // Nếu dùng FP16 thật, bạn cần thay bằng module FP multiplier/adder.
+            psum_out <= psum_in + (ifmap_in * w_reg);
+        end
+    end
+endmodule

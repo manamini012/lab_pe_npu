@@ -1,0 +1,193 @@
+# Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
+# ERROR: No extended dataflow license exists
+# do FPU_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Copying C:/intelFPGA/18.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -vlog01compat -work work +incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC {C:/altera/13.0sp1/FP16_MAC_Design/MAC/MAC_FP_16.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:55:07 on Dec 13,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC" C:/altera/13.0sp1/FP16_MAC_Design/MAC/MAC_FP_16.v 
+# -- Compiling module MAC_FP_16
+# 
+# Top level modules:
+# 	MAC_FP_16
+# End time: 17:55:07 on Dec 13,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC {C:/altera/13.0sp1/FP16_MAC_Design/MAC/ei_adder8.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:55:07 on Dec 13,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC" C:/altera/13.0sp1/FP16_MAC_Design/MAC/ei_adder8.v 
+# -- Compiling module ei_adder8
+# 
+# Top level modules:
+# 	ei_adder8
+# End time: 17:55:07 on Dec 13,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC {C:/altera/13.0sp1/FP16_MAC_Design/MAC/ei_adder32.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:55:07 on Dec 13,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC" C:/altera/13.0sp1/FP16_MAC_Design/MAC/ei_adder32.v 
+# -- Compiling module ei_adder32
+# 
+# Top level modules:
+# 	ei_adder32
+# End time: 17:55:07 on Dec 13,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC {C:/altera/13.0sp1/FP16_MAC_Design/MAC/FP_Add_16.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:55:08 on Dec 13,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC" C:/altera/13.0sp1/FP16_MAC_Design/MAC/FP_Add_16.v 
+# -- Compiling module FP_Add_16
+# 
+# Top level modules:
+# 	FP_Add_16
+# End time: 17:55:08 on Dec 13,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC {C:/altera/13.0sp1/FP16_MAC_Design/MAC/FP_Mul_16.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:55:08 on Dec 13,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC" C:/altera/13.0sp1/FP16_MAC_Design/MAC/FP_Mul_16.v 
+# -- Compiling module FP_Mul_16
+# 
+# Top level modules:
+# 	FP_Mul_16
+# End time: 17:55:08 on Dec 13,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC {C:/altera/13.0sp1/FP16_MAC_Design/MAC/Mantissa_Multiplier_16.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:55:08 on Dec 13,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC" C:/altera/13.0sp1/FP16_MAC_Design/MAC/Mantissa_Multiplier_16.v 
+# -- Compiling module Mantissa_Multiplier_16
+# 
+# Top level modules:
+# 	Mantissa_Multiplier_16
+# End time: 17:55:08 on Dec 13,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC {C:/altera/13.0sp1/FP16_MAC_Design/MAC/regN.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:55:08 on Dec 13,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC" C:/altera/13.0sp1/FP16_MAC_Design/MAC/regN.v 
+# -- Compiling module regN
+# 
+# Top level modules:
+# 	regN
+# End time: 17:55:08 on Dec 13,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC {C:/altera/13.0sp1/FP16_MAC_Design/MAC/ei_multiplier.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:55:08 on Dec 13,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC" C:/altera/13.0sp1/FP16_MAC_Design/MAC/ei_multiplier.v 
+# -- Compiling module ei_multiplier
+# 
+# Top level modules:
+# 	ei_multiplier
+# End time: 17:55:08 on Dec 13,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC {C:/altera/13.0sp1/FP16_MAC_Design/MAC/full_adder.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:55:08 on Dec 13,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC" C:/altera/13.0sp1/FP16_MAC_Design/MAC/full_adder.v 
+# -- Compiling module full_adder
+# 
+# Top level modules:
+# 	full_adder
+# End time: 17:55:08 on Dec 13,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC {C:/altera/13.0sp1/FP16_MAC_Design/MAC/pe_fp16.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:55:08 on Dec 13,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC" C:/altera/13.0sp1/FP16_MAC_Design/MAC/pe_fp16.v 
+# -- Compiling module pe_fp16
+# 
+# Top level modules:
+# 	pe_fp16
+# End time: 17:55:08 on Dec 13,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC {C:/altera/13.0sp1/FP16_MAC_Design/MAC/Systolic_Array_4x6.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:55:08 on Dec 13,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC" C:/altera/13.0sp1/FP16_MAC_Design/MAC/Systolic_Array_4x6.v 
+# -- Compiling module Systolic_Array_4x6
+# 
+# Top level modules:
+# 	Systolic_Array_4x6
+# End time: 17:55:09 on Dec 13,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC {C:/altera/13.0sp1/FP16_MAC_Design/MAC/Data_Skew_Buffer.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:55:09 on Dec 13,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC" C:/altera/13.0sp1/FP16_MAC_Design/MAC/Data_Skew_Buffer.v 
+# -- Compiling module Data_Skew_Buffer
+# 
+# Top level modules:
+# 	Data_Skew_Buffer
+# End time: 17:55:09 on Dec 13,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC {C:/altera/13.0sp1/FP16_MAC_Design/MAC/TPU_Top.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:55:09 on Dec 13,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC" C:/altera/13.0sp1/FP16_MAC_Design/MAC/TPU_Top.v 
+# -- Compiling module TPU_Top
+# 
+# Top level modules:
+# 	TPU_Top
+# End time: 17:55:09 on Dec 13,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vlog -vlog01compat -work work +incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC {C:/altera/13.0sp1/FP16_MAC_Design/MAC/tb_tpu_top.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:55:09 on Dec 13,2025
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/altera/13.0sp1/FP16_MAC_Design/MAC" C:/altera/13.0sp1/FP16_MAC_Design/MAC/tb_tpu_top.v 
+# -- Compiling module tb_tpu_top
+# 
+# Top level modules:
+# 	tb_tpu_top
+# End time: 17:55:09 on Dec 13,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneiv_hssi_ver -L cycloneiv_pcie_hip_ver -L cycloneiv_ver -L rtl_work -L work -voptargs="+acc"  tb_tpu_top
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneiv_hssi_ver -L cycloneiv_pcie_hip_ver -L cycloneiv_ver -L rtl_work -L work -voptargs=""+acc"" tb_tpu_top 
+# Start time: 17:55:09 on Dec 13,2025
+# Loading work.tb_tpu_top
+# Loading work.TPU_Top
+# Loading work.Data_Skew_Buffer
+# Loading work.Systolic_Array_4x6
+# Loading work.pe_fp16
+# Loading work.MAC_FP_16
+# Loading work.FP_Mul_16
+# Loading work.ei_adder8
+# Loading work.Mantissa_Multiplier_16
+# Loading work.ei_multiplier
+# Loading work.regN
+# Loading work.FP_Add_16
+# Loading work.ei_adder32
+# Loading work.full_adder
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# --- LOADING WEIGHTS ---
+# --- STREAMING DATA ---
+# [407000] OUTPUT: 4800 | 0000 | 0000 | 0000 | 0000 | 0000
+# [417000] OUTPUT: 4800 | 4800 | 0000 | 0000 | 0000 | 0000
+# [427000] OUTPUT: 0000 | 4800 | 4800 | 0000 | 0000 | 0000
+# [437000] OUTPUT: 0000 | 0000 | 4800 | 4800 | 0000 | 0000
+# [447000] OUTPUT: 0000 | 0000 | 0000 | 4800 | 4800 | 0000
+# [457000] OUTPUT: 0000 | 0000 | 0000 | 0000 | 4800 | 4800
+# [467000] OUTPUT: 0000 | 0000 | 0000 | 0000 | 0000 | 4800
+# ** Note: $stop    : C:/altera/13.0sp1/FP16_MAC_Design/MAC/tb_tpu_top.v(63)
+#    Time: 666 ns  Iteration: 0  Instance: /tb_tpu_top
+# Break in Module tb_tpu_top at C:/altera/13.0sp1/FP16_MAC_Design/MAC/tb_tpu_top.v line 63
+# End time: 17:56:35 on Dec 13,2025, Elapsed time: 0:01:26
+# Errors: 0, Warnings: 0

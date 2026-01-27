@@ -1,0 +1,16 @@
+Fitter Status : Successful - Sun Nov 16 15:14:16 2025
+Quartus II 64-Bit Version : 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition
+Revision Name : ScalingUnit
+Top-level Entity Name : ScalingUnit
+Family : Cyclone II
+Device : EP2C35F672C6
+Timing Models : Final
+Total logic elements : 536 / 33,216 ( 2 % )
+    Total combinational functions : 515 / 33,216 ( 2 % )
+    Dedicated logic registers : 144 / 33,216 ( < 1 % )
+Total registers : 144
+Total pins : 81 / 475 ( 17 % )
+Total virtual pins : 0
+Total memory bits : 0 / 483,840 ( 0 % )
+Embedded Multiplier 9-bit elements : 8 / 70 ( 11 % )
+Total PLLs : 0 / 4 ( 0 % )

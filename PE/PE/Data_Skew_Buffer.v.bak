@@ -1,0 +1,52 @@
+`timescale 1ns / 1ps
+
+module Data_Skew_Buffer (
+    input wire clk,
+    input wire rst,
+    input wire [63:0] ifmap_in,      // 4 hàng * 16-bit từ FIFO
+    output wire [63:0] ifmap_skewed  // 4 hàng đã được làm lệch
+);
+
+    // Tách 4 luồng dữ liệu
+    wire [15:0] in_row0 = ifmap_in[15:0];
+    wire [15:0] in_row1 = ifmap_in[31:16];
+    wire [15:0] in_row2 = ifmap_in[47:32];
+    wire [15:0] in_row3 = ifmap_in[63:48];
+
+    // --- Hàng 0: Không trễ (hoặc 1 nhịp để đồng bộ) ---
+    assign ifmap_skewed[15:0] = in_row0;
+
+    // --- Hàng 1: Trễ 1 nhịp ---
+    reg [15:0] delay1_r1;
+    always @(posedge clk or posedge rst) begin
+        if (rst) delay1_r1 <= 16'd0;
+        else     delay1_r1 <= in_row1;
+    end
+    assign ifmap_skewed[31:16] = delay1_r1;
+
+    // --- Hàng 2: Trễ 2 nhịp ---
+    reg [15:0] delay1_r2, delay2_r2;
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            delay1_r2 <= 16'd0; delay2_r2 <= 16'd0;
+        end else begin
+            delay1_r2 <= in_row2;
+            delay2_r2 <= delay1_r2;
+        end
+    end
+    assign ifmap_skewed[47:32] = delay2_r2;
+
+    // --- Hàng 3: Trễ 3 nhịp ---
+    reg [15:0] delay1_r3, delay2_r3, delay3_r3;
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            delay1_r3 <= 16'd0; delay2_r3 <= 16'd0; delay3_r3 <= 16'd0;
+        end else begin
+            delay1_r3 <= in_row3;
+            delay2_r3 <= delay1_r3;
+            delay3_r3 <= delay2_r3;
+        end
+    end
+    assign ifmap_skewed[63:48] = delay3_r3;
+
+endmodule

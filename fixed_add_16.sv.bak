@@ -1,0 +1,21 @@
+// ===============================================================
+// 16-bit Q8.8 adder with saturation
+// ===============================================================
+module fixed_add_16 (
+    input  logic signed [15:0] A,     // Q8.8
+    input  logic signed [15:0] B,     // Q8.8
+    output logic signed [15:0] Sum_Out
+);
+    logic signed [16:0] sum_ext;
+
+    assign sum_ext = A + B; // 17-bit to detect overflow
+
+    always_comb begin
+        if (sum_ext > 17'sd32767) 
+            Sum_Out = 16'sd32767;
+        else if (sum_ext < -17'sd32768)
+            Sum_Out = -17'sd32768;
+        else
+            Sum_Out = sum_ext[15:0];
+    end
+endmodule
